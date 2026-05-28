@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Voter": {
+      "title": "Voter",
+      "description": "A single voting token / ballot",
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["pending", "voted"] },
+        "choices": { "type": "object" },
+        "updatedAt": { "type": "string" },
+        "endTime": { "type": "string" },
+        "isTest": { "type": "boolean" }
+      },
+      "required": ["status", "endTime"]
+    },
+    "AdminVault": {
+      "title": "Admin Vault",
+      "description": "Secure storage for generated codes and poll settings. ID is sha256(email+password)",
+      "type": "object",
+      "properties": {
+        "pollTitle": { "type": "string" },
+        "endTime": { "type": "string" },
+        "voters": { "type": "array" },
+        "testVoters": { "type": "array" }
+      },
+      "required": ["pollTitle", "endTime", "voters"]
+    }
+  },
+  "firestore": {
+    "voters/{voterId}": {
+      "schema": "Voter",
+      "description": "Stores individual ballots. ID is the access code."
+    },
+    "admin_vault/{vaultId}": {
+      "schema": "AdminVault",
+      "description": "Stores all generated codes privately. ID is a hash of admin credentials."
+    }
+  }
+}

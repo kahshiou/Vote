@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #1e3a8a; /* blue-900 */
+  --color-brand-light: #eff6ff; /* blue-50 */
+  --color-brand-accent: #f59e0b; /* amber-500 */
+  --color-text-primary: #0f172a; /* slate-900 */
+  --color-text-secondary: #475569; /* slate-600 */
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}

@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /voters/{voterId} {
+      // Access code is the document ID. Anyone with the code can read it.
+      allow get: if true;
+      allow list: if false;
+      allow create: if true; // In this limited prototype, anyone (admin) can create.
+
+      allow update: if 
+        // Must contain only allowed fields
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'choices', 'updatedAt']) 
+        // Can only transition from pending -> voted, or voted -> voted (change vote)
+        && request.resource.data.status in ['pending', 'voted']
+        // Must not be after deadline
+        && request.time < resource.data.endTime;
+    }
+
+    match /admin_vault/{vaultId} {
+      // The ID is sha256(email+password). If an admin knows it, they can read/write.
+      allow get: if true;
+      allow list: if false;
+      allow create: if true;
+      allow update: if true;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "匿名投票計票系統",
+  "description": "提供 9 位參與者進行匿名投票，於截止時間結束後自動開票，包含後台票務管理。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
